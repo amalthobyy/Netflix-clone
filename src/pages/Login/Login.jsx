@@ -3,6 +3,7 @@ import './Login.css'
 import logo from '../../assets/logo.png'
 import { login,signup } from '../../firebase'
 
+
 const Login = () => {
   const [signState,setSignState]= useState("Sign In");
   const [name,setName]=useState("");
@@ -20,13 +21,6 @@ const Login = () => {
       
     
   }
-
-
-
-
-
-
-
 
   return (
     <div className='login'>
