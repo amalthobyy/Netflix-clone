@@ -24,7 +24,7 @@ const signup = async (name, email, password) => {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
 
-        console.log("uset",user.uid);
+        console.log("user",user.uid);
 
        
          const docRef= await addDoc(collection(db, "users"), { 
@@ -40,6 +40,7 @@ const signup = async (name, email, password) => {
     } catch (error) {
         console.error("Signup error:", error);
         toast.error(error.code.split('/')[1].split('-').join(" "));
+        throw error;
     }
 };
 
@@ -50,6 +51,7 @@ const login= async (email,password) =>{
     }catch (error){
         console.log(error);
         toast.error(error.code.split('/')[1].split('-').join(" "));
+        throw error;
 
     }
 
@@ -60,14 +62,7 @@ const logout = ()=>{
 };
 
 
-
-
-
-
-
-
-
-export {auth,db,login,signup,logout};
+export{auth,db,login,signup,logout};
 
 
 

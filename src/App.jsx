@@ -11,17 +11,20 @@ const App = () => {
 
   const navigate =useNavigate();
 
-  useEffect(()=>{
-    onAuthStateChanged(auth,async(user)=>{
-      if(user){
-        console.log("logged In");
-        navigate('/');
-      }else{
-        console.log("logged Out");
-        navigate('/login');
-      }
-    })
-  },[]);
+  useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("Logged In");
+      navigate('/', { replace: true });
+    } else {
+      console.log("Logged Out");
+      navigate('/login', { replace: true });
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
+
   return (
     <main>
       <ToastContainer  theme='dark' />

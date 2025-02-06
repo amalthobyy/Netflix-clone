@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import logo from '../../assets/logo.png'
 import { login,signup } from '../../firebase'
@@ -11,20 +12,26 @@ const Login = () => {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
   const [loading,setLoading ]= useState(false);
+  const navigate = useNavigate()
+  
 
-  const user_auth =async (event)=>{
-    event.perventDefault();
+  const user_auth = async (event) => {
+    event.preventDefault();
     setLoading(true);
-    if(signState==="Sign In"){
-      await login(email,password);
-
-    }else{
-      await signup(name,email,password);
+    try {
+      if (signState === "Sign In") {
+        await login(email, password);
+        navigate('/');  
+      } else {
+        await signup(name, email, password);
+        navigate('/login');  
+      }
+      
+    } catch (error) {
+      console.error(error);
     }
     setLoading(false);
-      
-    
-  }
+  };
 
   return (
     loading?<div className="login-spinner">
